@@ -2,23 +2,18 @@ let root = document.getElementById("root");
 const keyLoggedInUser = "logged in";
 const loggedInMenuHTML = `<button id="logOutBtn">logga ut</button>`
 
-// New account welcome message
+//New account - welcome message
 const welcomeMsg = "<h1>Välkommen!</h1><br /><span id='login'><a href='#login'>Logga in</a></span> om du redan har ett konto";
 
-// Default welcome message
-// const welcomeDefault = "<h1>Välkommen till vår kundportal.</h1><br />Logga in eller skapa konto i menyn ovan.";
-
-
-//HTML sign in
+//HTML - sign in
 const loggedOutMenuHTML = `
 <legend>Logga in</legend\>
 <input id='inpName' type='text' placeholder='Användarnamn'></input\><br>
 <input id='inpPw' type='text' placeholder='Lösenord'></input\><br>
 <button id='inpBtn'>LOGGA IN</button\>
 `
-/* <p>Inget konto? <span id='regView'><a href='#regView'>Registrera dig</a></span></p\> */
 
-//HTML new account
+//HTML - new account
 const newAccountHTML = 
 `<legend>Skapa ny användare</legend\>
 <form>
@@ -35,7 +30,7 @@ Ange lösenord<br>
 
 
 
-// Create account
+//Create account
 function loadNewAccount() {
   root.insertAdjacentHTML("afterbegin", newAccountHTML);
   menu.innerHTML = welcomeMsg;
@@ -44,7 +39,7 @@ function loadNewAccount() {
   regBtn.addEventListener ("click", function() {
     let regNewAccount = {userName: regName.value, userEmail: regEmail.value, userPw: regPw.value, newsletter: regNewsletter.checked}
 
-    fetch('http://localhost:3000/users/newaccount', {
+    fetch('https://nyhetsbrev-backend.herokuapp.com/users/newaccount', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -69,11 +64,10 @@ function loadNewAccount() {
 }
 loadNewAccount();
 
-// State: logged in
+//State: logged in
 function loadLoggedIn(userName, newsletterStatus) {
   menu.innerHTML = "";
   menu.innerHTML = loggedInMenuHTML;
-  // menu.insertAdjacentHTML("beforebegin", loggedInMenuHTML);
   logOutBtn = document.getElementById("logOutBtn");
   logOutBtn.addEventListener("click", function() {
     menu.innerHTML = "";
@@ -93,7 +87,7 @@ function updateUserSettings(userName) {
   updateBtn.addEventListener ("click", function() {
     let updateAccount = {userName: userName, newsletter: regNewsletter.checked}
 
-    fetch('http://localhost:3000/users/update', {
+    fetch('https://nyhetsbrev-backend.herokuapp.com/users/update', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -157,7 +151,7 @@ function loadLoggedOut() {
   loginBtn.addEventListener ("click", function() {
     let loginUser = {userName: inpName.value, userPw: inpPw.value}
 
-    fetch('http://localhost:3000/users/login', {
+    fetch('https://nyhetsbrev-backend.herokuapp.com/users/login', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
